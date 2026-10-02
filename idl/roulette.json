@@ -2,30 +2,27 @@
   "address": "7FqVwLDtBPC1YsKpiXUw8HxCJP63hqQKGFcnYXgYgHBn",
   "metadata": {
     "name": "roulette",
-    "version": "0.2.0",
+    "version": "0.4.0",
     "spec": "0.1.0",
-    "description": "Roulette3 table: player safes, sessions, sealed-envelope rounds, investor bank pool"
+    "description": "Roulana: player safes, sessions, sealed rounds, the investors' bank"
   },
   "instructions": [
     {
-      "name": "add_bond",
+      "name": "accept_owner",
       "discriminator": [
-        67,
-        104,
-        1,
-        227,
-        44,
-        237,
-        39,
-        95
+        176,
+        23,
+        41,
+        28,
+        23,
+        111,
+        8,
+        4
       ],
       "accounts": [
         {
-          "name": "owner",
-          "signer": true,
-          "relations": [
-            "table"
-          ]
+          "name": "new_owner",
+          "signer": true
         },
         {
           "name": "table",
@@ -49,47 +46,9 @@
               }
             ]
           }
-        },
-        {
-          "name": "mint"
-        },
-        {
-          "name": "vault",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  118,
-                  97,
-                  117,
-                  108,
-                  116
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "table"
-              }
-            ]
-          }
-        },
-        {
-          "name": "owner_token",
-          "writable": true
-        },
-        {
-          "name": "token_program",
-          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
         }
       ],
-      "args": [
-        {
-          "name": "amount",
-          "type": "u64"
-        }
-      ]
+      "args": []
     },
     {
       "name": "apply_buyback",
@@ -102,6 +61,45 @@
         73,
         151,
         158
+      ],
+      "accounts": [
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "apply_dealer",
+      "discriminator": [
+        156,
+        167,
+        54,
+        169,
+        32,
+        189,
+        74,
+        239
       ],
       "accounts": [
         {
@@ -616,6 +614,13 @@
           "name": "payer",
           "writable": true,
           "signer": true
+        },
+        {
+          "name": "program",
+          "address": "7FqVwLDtBPC1YsKpiXUw8HxCJP63hqQKGFcnYXgYgHBn"
+        },
+        {
+          "name": "program_data"
         },
         {
           "name": "mint"
@@ -1349,6 +1354,108 @@
       "args": []
     },
     {
+      "name": "propose_dealer",
+      "discriminator": [
+        206,
+        115,
+        187,
+        58,
+        252,
+        83,
+        113,
+        187
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "dealer",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "propose_owner",
+      "discriminator": [
+        90,
+        57,
+        141,
+        110,
+        196,
+        241,
+        172,
+        39
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_owner",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
       "name": "refund",
       "discriminator": [
         2,
@@ -1465,90 +1572,6 @@
         }
       ],
       "args": []
-    },
-    {
-      "name": "remove_bond",
-      "discriminator": [
-        114,
-        224,
-        192,
-        27,
-        21,
-        166,
-        109,
-        180
-      ],
-      "accounts": [
-        {
-          "name": "owner",
-          "signer": true,
-          "relations": [
-            "table"
-          ]
-        },
-        {
-          "name": "table",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  116,
-                  97,
-                  98,
-                  108,
-                  101
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "table.mint",
-                "account": "Table"
-              }
-            ]
-          }
-        },
-        {
-          "name": "mint"
-        },
-        {
-          "name": "vault",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  118,
-                  97,
-                  117,
-                  108,
-                  116
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "table"
-              }
-            ]
-          }
-        },
-        {
-          "name": "owner_token",
-          "writable": true
-        },
-        {
-          "name": "token_program",
-          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
-        }
-      ],
-      "args": [
-        {
-          "name": "amount",
-          "type": "u64"
-        }
-      ]
     },
     {
       "name": "request_withdrawal",
@@ -1791,57 +1814,6 @@
       ]
     },
     {
-      "name": "set_dealer",
-      "discriminator": [
-        167,
-        144,
-        207,
-        9,
-        227,
-        206,
-        187,
-        42
-      ],
-      "accounts": [
-        {
-          "name": "owner",
-          "signer": true,
-          "relations": [
-            "table"
-          ]
-        },
-        {
-          "name": "table",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  116,
-                  97,
-                  98,
-                  108,
-                  101
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "table.mint",
-                "account": "Table"
-              }
-            ]
-          }
-        }
-      ],
-      "args": [
-        {
-          "name": "dealer",
-          "type": "pubkey"
-        }
-      ]
-    },
-    {
       "name": "set_fee",
       "discriminator": [
         18,
@@ -1949,57 +1921,6 @@
         {
           "name": "throw_count",
           "type": "u32"
-        }
-      ]
-    },
-    {
-      "name": "set_owner",
-      "discriminator": [
-        72,
-        202,
-        120,
-        52,
-        77,
-        128,
-        96,
-        197
-      ],
-      "accounts": [
-        {
-          "name": "owner",
-          "signer": true,
-          "relations": [
-            "table"
-          ]
-        },
-        {
-          "name": "table",
-          "writable": true,
-          "pda": {
-            "seeds": [
-              {
-                "kind": "const",
-                "value": [
-                  116,
-                  97,
-                  98,
-                  108,
-                  101
-                ]
-              },
-              {
-                "kind": "account",
-                "path": "table.mint",
-                "account": "Table"
-              }
-            ]
-          }
-        }
-      ],
-      "args": [
-        {
-          "name": "new_owner",
-          "type": "pubkey"
         }
       ]
     },
@@ -2662,7 +2583,7 @@
     {
       "code": 6043,
       "name": "TooEarlyToChange",
-      "msg": "The change is not due yet: 7 days' notice"
+      "msg": "The change is not due yet"
     },
     {
       "code": 6044,
@@ -2673,6 +2594,26 @@
       "code": 6045,
       "name": "WrongBuybackAccount",
       "msg": "Not the table's buyback account"
+    },
+    {
+      "code": 6046,
+      "name": "RevealWindowPassed",
+      "msg": "Too late to reveal: the round can only be cancelled"
+    },
+    {
+      "code": 6047,
+      "name": "TooEarlyToResume",
+      "msg": "After a cancelled round the table resumes 25 hours later"
+    },
+    {
+      "code": 6048,
+      "name": "NotPendingOwner",
+      "msg": "Not the owner named to take over"
+    },
+    {
+      "code": 6049,
+      "name": "NotUpgradeAuthority",
+      "msg": "Only the program's upgrade authority sets up a table"
     }
   ],
   "types": [
@@ -2840,17 +2781,10 @@
             }
           },
           {
-            "name": "best_total",
-            "docs": [
-              "Sum of every player's best case (what a forfeit pays them)."
-            ],
-            "type": "u64"
-          },
-          {
             "name": "forfeited",
             "docs": [
-              "The dealer did not reveal in time: each player got their best case and the pool its best case, paid by the",
-              "owner's guarantee; no fee; number is NO_NUMBER."
+              "The dealer did not reveal in time: the round was cancelled (status Voided, number NO_NUMBER); every stake goes",
+              "back by refund and the table paused."
             ],
             "type": "bool"
           },
@@ -2916,13 +2850,6 @@
           },
           {
             "name": "stake",
-            "type": "u64"
-          },
-          {
-            "name": "best",
-            "docs": [
-              "The most these bets can pay (what a forfeit pays)."
-            ],
             "type": "u64"
           },
           {
@@ -3091,7 +3018,7 @@
           {
             "name": "pool",
             "docs": [
-              "Ledger inside the vault: vault balance = safes_total + pool + escrow_total + owed_total + bond + buyback_owed."
+              "Ledger inside the vault: vault balance = safes_total + pool + escrow_total + owed_total + buyback_owed."
             ],
             "type": "u64"
           },
@@ -3109,14 +3036,6 @@
           },
           {
             "name": "owed_total",
-            "type": "u64"
-          },
-          {
-            "name": "bond",
-            "docs": [
-              "The owner's guarantee: pays for a forfeited round (every player and the pool at their best case). Every bet set",
-              "must fit what it can cover; it leaves the vault only between rounds."
-            ],
             "type": "u64"
           },
           {
@@ -3168,12 +3087,53 @@
             "type": "i64"
           },
           {
+            "name": "resume_at",
+            "docs": [
+              "After a cancelled round the table may not resume before this time (0: no wait)."
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "pending_owner",
+            "docs": [
+              "A new owner the owner named (Pubkey::default(): none), and from when it may accept with its own key."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "owner_change_at",
+            "type": "i64"
+          },
+          {
+            "name": "pending_dealer",
+            "docs": [
+              "A new dealer the owner named (Pubkey::default(): none), and from when anyone may apply it."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "dealer_change_at",
+            "type": "i64"
+          },
+          {
             "name": "bump",
             "type": "u8"
           },
           {
             "name": "vault_bump",
             "type": "u8"
+          },
+          {
+            "name": "reserved",
+            "docs": [
+              "Room for settings a later version adds (taken from here, so the table keeps its size and its address)."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                256
+              ]
+            }
           }
         ]
       }
