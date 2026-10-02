@@ -1,0 +1,16 @@
+[toolchain]
+anchor_version = "0.32.1"
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.mainnet]
+roulette = "7FqVwLDtBPC1YsKpiXUw8HxCJP63hqQKGFcnYXgYgHBn"
+
+[programs.localnet]
+roulette = "7FqVwLDtBPC1YsKpiXUw8HxCJP63hqQKGFcnYXgYgHBn"
+
+[provider]
+cluster = "mainnet"
+wallet = "~/.config/solana/id.json"

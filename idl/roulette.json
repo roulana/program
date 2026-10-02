@@ -1,0 +1,3182 @@
+{
+  "address": "7FqVwLDtBPC1YsKpiXUw8HxCJP63hqQKGFcnYXgYgHBn",
+  "metadata": {
+    "name": "roulette",
+    "version": "0.2.0",
+    "spec": "0.1.0",
+    "description": "Roulette3 table: player safes, sessions, sealed-envelope rounds, investor bank pool"
+  },
+  "instructions": [
+    {
+      "name": "add_bond",
+      "discriminator": [
+        67,
+        104,
+        1,
+        227,
+        44,
+        237,
+        39,
+        95
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner_token",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "apply_buyback",
+      "discriminator": [
+        236,
+        31,
+        111,
+        22,
+        35,
+        73,
+        151,
+        158
+      ],
+      "accounts": [
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "close_bets",
+      "discriminator": [
+        82,
+        76,
+        167,
+        51,
+        32,
+        70,
+        9,
+        135
+      ],
+      "accounts": [
+        {
+          "name": "round_bets",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  101,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "round_bets.round",
+                "account": "RoundBets"
+              },
+              {
+                "kind": "account",
+                "path": "round_bets.wallet",
+                "account": "RoundBets"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payer",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "close_round",
+      "discriminator": [
+        149,
+        14,
+        81,
+        88,
+        230,
+        226,
+        234,
+        37
+      ],
+      "accounts": [
+        {
+          "name": "table",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "round.id",
+                "account": "Round"
+              }
+            ]
+          }
+        },
+        {
+          "name": "payer",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "close_session",
+      "discriminator": [
+        68,
+        114,
+        178,
+        140,
+        222,
+        38,
+        248,
+        211
+      ],
+      "accounts": [
+        {
+          "name": "wallet",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "table",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "session",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "wallet"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "deposit",
+      "discriminator": [
+        242,
+        35,
+        198,
+        137,
+        82,
+        225,
+        242,
+        182
+      ],
+      "accounts": [
+        {
+          "name": "wallet",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "wallet_token",
+          "writable": true
+        },
+        {
+          "name": "safe",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  97,
+                  102,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "wallet"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "execute_withdrawal",
+      "discriminator": [
+        113,
+        121,
+        203,
+        232,
+        137,
+        139,
+        248,
+        249
+      ],
+      "accounts": [
+        {
+          "name": "investor",
+          "signer": true
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "investor_token",
+          "writable": true
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "investor"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "forfeit",
+      "discriminator": [
+        80,
+        154,
+        237,
+        158,
+        244,
+        198,
+        154,
+        9
+      ],
+      "accounts": [
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "round.id",
+                "account": "Round"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "init_table",
+      "discriminator": [
+        236,
+        14,
+        14,
+        155,
+        160,
+        169,
+        133,
+        111
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "buyback_token",
+          "docs": [
+            "The public buyback wallet's account for this currency — never one the table itself holds."
+          ]
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "owner",
+          "type": "pubkey"
+        },
+        {
+          "name": "dealer",
+          "type": "pubkey"
+        },
+        {
+          "name": "fee_bps",
+          "type": "u16"
+        },
+        {
+          "name": "bank_limit_bps",
+          "type": "u16"
+        },
+        {
+          "name": "library_hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "throw_count",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "invest",
+      "discriminator": [
+        13,
+        245,
+        180,
+        103,
+        254,
+        182,
+        121,
+        4
+      ],
+      "accounts": [
+        {
+          "name": "investor",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "investor_token",
+          "writable": true
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "investor"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "lock_round",
+      "discriminator": [
+        68,
+        124,
+        43,
+        230,
+        30,
+        44,
+        248,
+        227
+      ],
+      "accounts": [
+        {
+          "name": "dealer",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "round.id",
+                "account": "Round"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "open_round",
+      "discriminator": [
+        66,
+        235,
+        123,
+        240,
+        8,
+        35,
+        185,
+        159
+      ],
+      "accounts": [
+        {
+          "name": "dealer",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "commitment",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "open_session",
+      "discriminator": [
+        130,
+        54,
+        124,
+        7,
+        236,
+        20,
+        104,
+        104
+      ],
+      "accounts": [
+        {
+          "name": "wallet",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "table",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "session",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "wallet"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "key",
+          "type": "pubkey"
+        },
+        {
+          "name": "cap",
+          "type": "u64"
+        },
+        {
+          "name": "expires_at",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "pay_buyback",
+      "discriminator": [
+        177,
+        3,
+        171,
+        195,
+        102,
+        127,
+        113,
+        46
+      ],
+      "accounts": [
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "buyback_token",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "place_bets",
+      "discriminator": [
+        49,
+        131,
+        14,
+        212,
+        212,
+        143,
+        224,
+        150
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "session_key",
+          "signer": true
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "round.id",
+                "account": "Round"
+              }
+            ]
+          }
+        },
+        {
+          "name": "session",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  101,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "session.wallet",
+                "account": "Session"
+              }
+            ]
+          }
+        },
+        {
+          "name": "safe",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  97,
+                  102,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "session.wallet",
+                "account": "Session"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round_bets",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  101,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "round"
+              },
+              {
+                "kind": "account",
+                "path": "session.wallet",
+                "account": "Session"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "bets",
+          "type": {
+            "vec": {
+              "defined": {
+                "name": "Bet"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "propose_buyback",
+      "discriminator": [
+        234,
+        96,
+        219,
+        93,
+        138,
+        108,
+        229,
+        55
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "new_buyback_token",
+          "docs": [
+            "Of the table's currency, and never an account the table itself holds (the vault): money sent there would be",
+            "stuck and still reported as sent."
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "refund",
+      "discriminator": [
+        2,
+        96,
+        183,
+        251,
+        63,
+        208,
+        46,
+        46
+      ],
+      "accounts": [
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "round.id",
+                "account": "Round"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round_bets",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  101,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "round"
+              },
+              {
+                "kind": "account",
+                "path": "round_bets.wallet",
+                "account": "RoundBets"
+              }
+            ]
+          }
+        },
+        {
+          "name": "safe",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  97,
+                  102,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "round_bets.wallet",
+                "account": "RoundBets"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "remove_bond",
+      "discriminator": [
+        114,
+        224,
+        192,
+        27,
+        21,
+        166,
+        109,
+        180
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner_token",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "request_withdrawal",
+      "discriminator": [
+        251,
+        85,
+        121,
+        205,
+        56,
+        201,
+        12,
+        177
+      ],
+      "accounts": [
+        {
+          "name": "investor",
+          "signer": true
+        },
+        {
+          "name": "table",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "position",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  115,
+                  105,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "investor"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "shares",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "reveal",
+      "discriminator": [
+        9,
+        35,
+        59,
+        190,
+        167,
+        249,
+        76,
+        115
+      ],
+      "accounts": [
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "round.id",
+                "account": "Round"
+              }
+            ]
+          }
+        },
+        {
+          "name": "slot_hashes",
+          "address": "SysvarS1otHashes111111111111111111111111111"
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "owner_token",
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "seed",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "set_bank_limit",
+      "discriminator": [
+        79,
+        25,
+        111,
+        231,
+        242,
+        32,
+        101,
+        2
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "set_dealer",
+      "discriminator": [
+        167,
+        144,
+        207,
+        9,
+        227,
+        206,
+        187,
+        42
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "dealer",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_fee",
+      "discriminator": [
+        18,
+        154,
+        24,
+        18,
+        237,
+        214,
+        19,
+        80
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "bps",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "set_library",
+      "discriminator": [
+        76,
+        99,
+        210,
+        119,
+        101,
+        235,
+        142,
+        191
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "hash",
+          "type": {
+            "array": [
+              "u8",
+              32
+            ]
+          }
+        },
+        {
+          "name": "throw_count",
+          "type": "u32"
+        }
+      ]
+    },
+    {
+      "name": "set_owner",
+      "discriminator": [
+        72,
+        202,
+        120,
+        52,
+        77,
+        128,
+        96,
+        197
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "new_owner",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_paused",
+      "discriminator": [
+        91,
+        60,
+        125,
+        192,
+        176,
+        225,
+        166,
+        218
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "table"
+          ]
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        }
+      ],
+      "args": [
+        {
+          "name": "paused",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "settle",
+      "discriminator": [
+        175,
+        42,
+        185,
+        87,
+        144,
+        131,
+        102,
+        212
+      ],
+      "accounts": [
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "round.id",
+                "account": "Round"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round_bets",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  98,
+                  101,
+                  116,
+                  115
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "round"
+              },
+              {
+                "kind": "account",
+                "path": "round_bets.wallet",
+                "account": "RoundBets"
+              }
+            ]
+          }
+        },
+        {
+          "name": "safe",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  97,
+                  102,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "round_bets.wallet",
+                "account": "RoundBets"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "version",
+      "docs": [
+        "The program's version (a harmless call used to check the build end to end)."
+      ],
+      "discriminator": [
+        118,
+        65,
+        195,
+        198,
+        129,
+        216,
+        252,
+        192
+      ],
+      "accounts": [],
+      "args": []
+    },
+    {
+      "name": "void_round",
+      "discriminator": [
+        102,
+        72,
+        126,
+        187,
+        12,
+        18,
+        16,
+        96
+      ],
+      "accounts": [
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "round",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  114,
+                  111,
+                  117,
+                  110,
+                  100
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "round.id",
+                "account": "Round"
+              }
+            ]
+          }
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "withdraw",
+      "discriminator": [
+        183,
+        18,
+        70,
+        156,
+        148,
+        109,
+        161,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "wallet",
+          "signer": true
+        },
+        {
+          "name": "table",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  97,
+                  98,
+                  108,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table.mint",
+                "account": "Table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              }
+            ]
+          }
+        },
+        {
+          "name": "wallet_token",
+          "writable": true
+        },
+        {
+          "name": "safe",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  115,
+                  97,
+                  102,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "table"
+              },
+              {
+                "kind": "account",
+                "path": "wallet"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_program",
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Position",
+      "discriminator": [
+        170,
+        188,
+        143,
+        228,
+        122,
+        64,
+        247,
+        208
+      ]
+    },
+    {
+      "name": "Round",
+      "discriminator": [
+        87,
+        127,
+        165,
+        51,
+        73,
+        78,
+        116,
+        174
+      ]
+    },
+    {
+      "name": "RoundBets",
+      "discriminator": [
+        255,
+        72,
+        1,
+        37,
+        90,
+        202,
+        135,
+        51
+      ]
+    },
+    {
+      "name": "Safe",
+      "discriminator": [
+        142,
+        128,
+        125,
+        131,
+        110,
+        89,
+        143,
+        114
+      ]
+    },
+    {
+      "name": "Session",
+      "discriminator": [
+        243,
+        81,
+        72,
+        115,
+        214,
+        188,
+        72,
+        144
+      ]
+    },
+    {
+      "name": "Table",
+      "discriminator": [
+        34,
+        100,
+        138,
+        97,
+        236,
+        129,
+        230,
+        112
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NotMintAuthority",
+      "msg": "Not the mint authority"
+    },
+    {
+      "code": 6001,
+      "name": "NotOwner",
+      "msg": "Not the table owner"
+    },
+    {
+      "code": 6002,
+      "name": "NotDealer",
+      "msg": "Not the table dealer"
+    },
+    {
+      "code": 6003,
+      "name": "FeeAboveCap",
+      "msg": "Fee above its cap"
+    },
+    {
+      "code": 6004,
+      "name": "BankLimitOutOfRange",
+      "msg": "Bank limit outside its range"
+    },
+    {
+      "code": 6005,
+      "name": "NoThrows",
+      "msg": "Throw count must be at least 1"
+    },
+    {
+      "code": 6006,
+      "name": "ZeroAmount",
+      "msg": "Amount must be above zero"
+    },
+    {
+      "code": 6007,
+      "name": "InsufficientSafe",
+      "msg": "Not enough in the safe"
+    },
+    {
+      "code": 6008,
+      "name": "StakeInRound",
+      "msg": "A stake is still in an unsettled round"
+    },
+    {
+      "code": 6009,
+      "name": "Overflow",
+      "msg": "Arithmetic overflow"
+    },
+    {
+      "code": 6010,
+      "name": "Paused",
+      "msg": "The table is paused"
+    },
+    {
+      "code": 6011,
+      "name": "RoundRunning",
+      "msg": "A round is still running"
+    },
+    {
+      "code": 6012,
+      "name": "NotCurrentRound",
+      "msg": "Not the current round"
+    },
+    {
+      "code": 6013,
+      "name": "WrongRoundStatus",
+      "msg": "Round is not in the right state"
+    },
+    {
+      "code": 6014,
+      "name": "NoBets",
+      "msg": "No bets"
+    },
+    {
+      "code": 6015,
+      "name": "TooManyBets",
+      "msg": "Too many bets"
+    },
+    {
+      "code": 6016,
+      "name": "UnknownSpot",
+      "msg": "Unknown bet spot"
+    },
+    {
+      "code": 6017,
+      "name": "InvalidAmount",
+      "msg": "Bets must be whole dollars, at least 1"
+    },
+    {
+      "code": 6018,
+      "name": "SpotLimit",
+      "msg": "Table limit on this spot"
+    },
+    {
+      "code": 6019,
+      "name": "RoundLimit",
+      "msg": "Round limit: $10,000"
+    },
+    {
+      "code": 6020,
+      "name": "BankLimit",
+      "msg": "Bank limit reached"
+    },
+    {
+      "code": 6021,
+      "name": "WrongSessionKey",
+      "msg": "Session key does not match"
+    },
+    {
+      "code": 6022,
+      "name": "SessionExpired",
+      "msg": "Session expired"
+    },
+    {
+      "code": 6023,
+      "name": "SessionCap",
+      "msg": "Session cap reached"
+    },
+    {
+      "code": 6024,
+      "name": "SessionTooLong",
+      "msg": "Session too long"
+    },
+    {
+      "code": 6025,
+      "name": "WrongVrfAccount",
+      "msg": "Wrong randomness account"
+    },
+    {
+      "code": 6026,
+      "name": "NotFulfilled",
+      "msg": "Randomness not fulfilled yet"
+    },
+    {
+      "code": 6027,
+      "name": "TooEarlyToVoid",
+      "msg": "Too early to void"
+    },
+    {
+      "code": 6028,
+      "name": "AlreadySettled",
+      "msg": "Already settled"
+    },
+    {
+      "code": 6029,
+      "name": "NoShares",
+      "msg": "No shares"
+    },
+    {
+      "code": 6030,
+      "name": "InsufficientShares",
+      "msg": "Not enough shares"
+    },
+    {
+      "code": 6031,
+      "name": "NoticeNotPassed",
+      "msg": "Withdrawal notice has not passed"
+    },
+    {
+      "code": 6032,
+      "name": "PoolEmpty",
+      "msg": "The pool is empty"
+    },
+    {
+      "code": 6033,
+      "name": "RandomnessArrived",
+      "msg": "The randomness has arrived: the round can only be revealed"
+    },
+    {
+      "code": 6034,
+      "name": "TooSoon",
+      "msg": "The next round opens a few seconds after the last one"
+    },
+    {
+      "code": 6035,
+      "name": "NotAllSettled",
+      "msg": "Not all bets of this round are settled"
+    },
+    {
+      "code": 6036,
+      "name": "WrongSeed",
+      "msg": "The seed does not match the round's sealed envelope"
+    },
+    {
+      "code": 6037,
+      "name": "EntropyNotReady",
+      "msg": "The entropy slot does not exist yet"
+    },
+    {
+      "code": 6038,
+      "name": "EntropyGone",
+      "msg": "The entropy slot has left Solana's history: the round can only be forfeited"
+    },
+    {
+      "code": 6039,
+      "name": "TooEarlyToForfeit",
+      "msg": "The dealer still has time to reveal"
+    },
+    {
+      "code": 6040,
+      "name": "BondLimit",
+      "msg": "The owner's guarantee cannot cover more bets this round"
+    },
+    {
+      "code": 6041,
+      "name": "InsufficientBond",
+      "msg": "Not that much in the owner's guarantee"
+    },
+    {
+      "code": 6042,
+      "name": "BelowMinimum",
+      "msg": "At least $100 per investment"
+    },
+    {
+      "code": 6043,
+      "name": "TooEarlyToChange",
+      "msg": "The change is not due yet: 7 days' notice"
+    },
+    {
+      "code": 6044,
+      "name": "NoPendingChange",
+      "msg": "No change is pending"
+    },
+    {
+      "code": 6045,
+      "name": "WrongBuybackAccount",
+      "msg": "Not the table's buyback account"
+    }
+  ],
+  "types": [
+    {
+      "name": "Bet",
+      "docs": [
+        "One bet as recorded on-chain: a spot (index into spots::SPOTS) and whole dollars."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "spot",
+            "type": "u8"
+          },
+          {
+            "name": "dollars",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Position",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "table",
+            "type": "pubkey"
+          },
+          {
+            "name": "investor",
+            "type": "pubkey"
+          },
+          {
+            "name": "shares",
+            "docs": [
+              "All shares, including those waiting to be withdrawn (they keep sharing wins and losses until paid)."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "pending_shares",
+            "type": "u64"
+          },
+          {
+            "name": "unlock_at",
+            "type": "i64"
+          },
+          {
+            "name": "invested",
+            "docs": [
+              "Plain counters for the Bank page (money is never computed from them): all put in, all taken out, first joined."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "withdrawn",
+            "type": "u64"
+          },
+          {
+            "name": "joined_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Round",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "table",
+            "type": "pubkey"
+          },
+          {
+            "name": "id",
+            "type": "u64"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "RoundStatus"
+              }
+            }
+          },
+          {
+            "name": "opened_at",
+            "type": "i64"
+          },
+          {
+            "name": "locked_at",
+            "type": "i64"
+          },
+          {
+            "name": "liabilities",
+            "docs": [
+              "What the pool pays (stakes back + winnings) if number n wins."
+            ],
+            "type": {
+              "array": [
+                "u64",
+                37
+              ]
+            }
+          },
+          {
+            "name": "total_stake",
+            "type": "u64"
+          },
+          {
+            "name": "players",
+            "type": "u32"
+          },
+          {
+            "name": "settled",
+            "type": "u32"
+          },
+          {
+            "name": "commitment",
+            "docs": [
+              "The sealed envelope: sha256 of the dealer's secret seed, published when the round opened."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "lock_slot",
+            "type": "u64"
+          },
+          {
+            "name": "seed",
+            "docs": [
+              "Revealed: the seed, and the slot and hash it was mixed with."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "entropy_slot",
+            "type": "u64"
+          },
+          {
+            "name": "entropy_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "best_total",
+            "docs": [
+              "Sum of every player's best case (what a forfeit pays them)."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "forfeited",
+            "docs": [
+              "The dealer did not reveal in time: each player got their best case and the pool its best case, paid by the",
+              "owner's guarantee; no fee; number is NO_NUMBER."
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "number",
+            "type": "u8"
+          },
+          {
+            "name": "throw_index",
+            "type": "u32"
+          },
+          {
+            "name": "fee",
+            "type": "u64"
+          },
+          {
+            "name": "owed",
+            "docs": [
+              "Still to be credited to winners' safes."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "payer",
+            "docs": [
+              "Who paid the account's rent (gets it back when the round is closed)."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoundBets",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "round",
+            "type": "pubkey"
+          },
+          {
+            "name": "wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "payer",
+            "type": "pubkey"
+          },
+          {
+            "name": "bets",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "Bet"
+                }
+              }
+            }
+          },
+          {
+            "name": "stake",
+            "type": "u64"
+          },
+          {
+            "name": "best",
+            "docs": [
+              "The most these bets can pay (what a forfeit pays)."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "payout",
+            "type": "u64"
+          },
+          {
+            "name": "done",
+            "docs": [
+              "Settled or refunded."
+            ],
+            "type": "bool"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoundStatus",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "None"
+          },
+          {
+            "name": "Open"
+          },
+          {
+            "name": "Locked"
+          },
+          {
+            "name": "Revealed"
+          },
+          {
+            "name": "Voided"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Safe",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "balance",
+            "type": "u64"
+          },
+          {
+            "name": "pending_round",
+            "docs": [
+              "Round whose bets are not settled or refunded yet (0: none)."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Session",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "key",
+            "docs": [
+              "The browser's key that may place bets for `wallet` (and do nothing else)."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "cap_remaining",
+            "type": "u64"
+          },
+          {
+            "name": "expires_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Table",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "dealer",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "unit",
+            "docs": [
+              "Base units per dollar (10^decimals)."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "fee_bps",
+            "type": "u16"
+          },
+          {
+            "name": "bank_limit_bps",
+            "type": "u16"
+          },
+          {
+            "name": "library_hash",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "throw_count",
+            "type": "u32"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "round_id",
+            "docs": [
+              "Id of the latest round (0: none yet) and its status."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "round_status",
+            "type": {
+              "defined": {
+                "name": "RoundStatus"
+              }
+            }
+          },
+          {
+            "name": "pool",
+            "docs": [
+              "Ledger inside the vault: vault balance = safes_total + pool + escrow_total + owed_total + bond + buyback_owed."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "total_shares",
+            "type": "u64"
+          },
+          {
+            "name": "safes_total",
+            "type": "u64"
+          },
+          {
+            "name": "escrow_total",
+            "type": "u64"
+          },
+          {
+            "name": "owed_total",
+            "type": "u64"
+          },
+          {
+            "name": "bond",
+            "docs": [
+              "The owner's guarantee: pays for a forfeited round (every player and the pool at their best case). Every bet set",
+              "must fit what it can cover; it leaves the vault only between rounds."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "fees_paid",
+            "type": "u64"
+          },
+          {
+            "name": "total_staked",
+            "type": "u64"
+          },
+          {
+            "name": "round_closed_at",
+            "docs": [
+              "When the latest round was revealed or voided (the next may open ROUND_GAP_SECS later)."
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "buyback_token",
+            "docs": [
+              "The public buyback wallet's token account. Half of every fee is set aside for it (rules::split_fee, a constant)",
+              "and anyone may send what is set aside (pay_buyback). No round depends on this account."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "buyback_owed",
+            "docs": [
+              "Set aside in the vault for the buyback account, not sent yet."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "buyback_paid",
+            "docs": [
+              "Sent to the buyback account so far."
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "pending_buyback_token",
+            "docs": [
+              "A new buyback account the owner proposed (Pubkey::default(): none), and from when anyone may apply it."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "buyback_change_at",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "vault_bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

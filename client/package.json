@@ -1,0 +1,22 @@
+{
+  "name": "roulana-program-client",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --noEmit -p .",
+    "fetch-program": "bun scripts/fetch-program.ts"
+  },
+  "dependencies": {
+    "@noble/hashes": "2.4.0",
+    "@solana-program/system": "0.15.0",
+    "@solana-program/token": "0.17.0",
+    "@solana/kit": "8.3.0",
+    "@solana/program-client-core": "8.3.0"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.2",
+    "litesvm": "1.4.1",
+    "typescript": "7.0.2"
+  }
+}

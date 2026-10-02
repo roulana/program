@@ -1,0 +1,32 @@
+[package]
+name = "roulette"
+version = "0.4.0"
+edition = "2021"
+description = "Roulana: player safes, sessions, sealed rounds, the investors' bank"
+# published to be read and checked, not reused: no licence is granted (the owner, 2026-10-02)
+publish = false
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "roulette"
+
+[features]
+default = ["no-idl"]   # no on-chain IDL instructions: we never publish one, so nobody can claim its account
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+# checked by Anchor's macros (declared as in Anchor's project template, so the build has no warnings)
+anchor-debug = []
+custom-heap = []
+custom-panic = []
+
+[dependencies]
+anchor-lang = { version = "0.32.1", features = ["init-if-needed"] }
+anchor-spl = "0.32.1"
+hmac = "0.12"
+sha2 = { version = "0.10", default-features = false }
+
+[dev-dependencies]
+serde_json = "1"

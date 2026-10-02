@@ -1,0 +1,61 @@
+use anchor_lang::prelude::*;
+
+#[error_code]
+#[derive(PartialEq, Eq)]
+pub enum RouletteError {
+    // NotMintAuthority is unused since 0.4.0 (a table is set up by the program's upgrade authority).
+    #[msg("Not the mint authority")] NotMintAuthority,
+    #[msg("Not the table owner")] NotOwner,
+    #[msg("Not the table dealer")] NotDealer,
+    #[msg("Fee above its cap")] FeeAboveCap,
+    #[msg("Bank limit outside its range")] BankLimitOutOfRange,
+    #[msg("Throw count must be at least 1")] NoThrows,
+    #[msg("Amount must be above zero")] ZeroAmount,
+    #[msg("Not enough in the safe")] InsufficientSafe,
+    #[msg("A stake is still in an unsettled round")] StakeInRound,
+    #[msg("Arithmetic overflow")] Overflow,
+    #[msg("The table is paused")] Paused,
+    #[msg("A round is still running")] RoundRunning,
+    #[msg("Not the current round")] NotCurrentRound,
+    #[msg("Round is not in the right state")] WrongRoundStatus,
+    #[msg("No bets")] NoBets,
+    #[msg("Too many bets")] TooManyBets,
+    #[msg("Unknown bet spot")] UnknownSpot,
+    #[msg("Bets must be whole dollars, at least 1")] InvalidAmount,
+    #[msg("Table limit on this spot")] SpotLimit,
+    #[msg("Round limit: $10,000")] RoundLimit,
+    #[msg("Bank limit reached")] BankLimit,
+    #[msg("Session key does not match")] WrongSessionKey,
+    #[msg("Session expired")] SessionExpired,
+    #[msg("Session cap reached")] SessionCap,
+    #[msg("Session too long")] SessionTooLong,
+    // BondLimit is unused since 0.3.0 (no guarantee check), InsufficientBond since 0.4.0 (the guarantee is gone); they
+    // stay so every error keeps its number.
+    // WrongVrfAccount, NotFulfilled and RandomnessArrived are unused since the sealed envelope; they stay so that every
+    // error keeps its number (new errors are only ever appended).
+    #[msg("Wrong randomness account")] WrongVrfAccount,
+    #[msg("Randomness not fulfilled yet")] NotFulfilled,
+    #[msg("Too early to void")] TooEarlyToVoid,
+    #[msg("Already settled")] AlreadySettled,
+    #[msg("No shares")] NoShares,
+    #[msg("Not enough shares")] InsufficientShares,
+    #[msg("Withdrawal notice has not passed")] NoticeNotPassed,
+    #[msg("The pool is empty")] PoolEmpty,
+    #[msg("The randomness has arrived: the round can only be revealed")] RandomnessArrived,
+    #[msg("The next round opens a few seconds after the last one")] TooSoon,
+    #[msg("Not all bets of this round are settled")] NotAllSettled,
+    #[msg("The seed does not match the round's sealed envelope")] WrongSeed,
+    #[msg("The entropy slot does not exist yet")] EntropyNotReady,
+    #[msg("The entropy slot has left Solana's history: the round can only be forfeited")] EntropyGone,
+    #[msg("The dealer still has time to reveal")] TooEarlyToForfeit,
+    #[msg("The owner's guarantee cannot cover more bets this round")] BondLimit,
+    #[msg("Not that much in the owner's guarantee")] InsufficientBond,
+    #[msg("At least $100 per investment")] BelowMinimum,
+    #[msg("The change is not due yet")] TooEarlyToChange,
+    #[msg("No change is pending")] NoPendingChange,
+    #[msg("Not the table's buyback account")] WrongBuybackAccount,
+    #[msg("Too late to reveal: the round can only be cancelled")] RevealWindowPassed,
+    #[msg("After a cancelled round the table resumes 25 hours later")] TooEarlyToResume,
+    #[msg("Not the owner named to take over")] NotPendingOwner,
+    #[msg("Only the program's upgrade authority sets up a table")] NotUpgradeAuthority,
+}
