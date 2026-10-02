@@ -60,10 +60,22 @@ in every round's receipt: `receipt: round <id> number <n> throw <t> block <slot>
 - Bring in a new dealer or owner without 25 hours’ public notice
 - Resume the table sooner than 25 hours after a cancelled round
 
-**Upgrades.** The program can still be upgraded with the owner’s key, kept offline. Every upgrade is public on Solana. Next: upgrades will need several keys and a 7-day wait, so everyone can leave
-first; and a verified build, so anyone can prove that this code is the program running on Solana.
+**Upgrades.** The program can still be upgraded with the owner’s key, kept offline. Every upgrade is public on Solana. Next: upgrades will need several keys and a 7-day wait, so everyone can leave first.
 
 **The number, for developers.** The number: the key is the 32-byte seed followed by the 32-byte hash of the later block (64 bytes). The program computes HMAC-SHA256 of the text "roulette3:<round id>:<counter>" (the round’s id on Solana; counter 0, 1, 2 …), reads each result as 32-bit big-endian numbers and turns them into 0–36 by rejection sampling, so no number is favoured.
+
+## A verified build
+
+Built in Solana's standard sealed build box ([solana-verify](https://github.com/solana-foundation/solana-verifiable-build)),
+`program/` gives byte for byte the program running on Solana: executable hash
+`1cbabf2795b13a70c8a5969d41c518c8a5bf0785f19657b4ebdd0b826145dd81`. [OtterSec's verification service](https://verify.osec.io/status/7FqVwLDtBPC1YsKpiXUw8HxCJP63hqQKGFcnYXgYgHBn)
+rebuilt it from this repository and confirmed it, and the program's upgrade key signed the record on Solana that names
+this repository, so explorers mark the program as verified. Check it yourself (Docker and solana-verify):
+
+```sh
+solana-verify verify-from-repo -u https://api.mainnet-beta.solana.com --program-id 7FqVwLDtBPC1YsKpiXUw8HxCJP63hqQKGFcnYXgYgHBn \
+  https://github.com/roulana/program --commit-hash 376017f055442f75734a40b148fc0dabb67deab4 --library-name roulette --mount-path program
+```
 
 ## Check it yourself
 
